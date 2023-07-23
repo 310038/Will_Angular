@@ -1,0 +1,39 @@
+<header class="post-header">
+  <h2 class="post-title">
+    <!--網址標題，若編輯不等於true，則顯示標題-->
+    <a *ngIf="!isEdit" [href]="article.href">{{ article.title }}</a>
+    <!--標題編輯框，若編輯等於true，則顯示輸入框-->
+    <input
+      *ngIf="isEdit"
+      type="text"
+      size="70"
+      [(ngModel)]="article.title"
+      (keyup.enter)="onSave()"
+      (keyup.escape)="onReset()"
+    />
+    <!-- <small>{{ item.subtitle }}</small> -->
+  </h2>
+  <div class="post-info clearfix">
+    <span class="post-date"
+      ><i class="glyphicon glyphicon-calendar"></i
+      >{{ article.date | date: "shortDate" }}</span
+    >
+    <span class="post-author"
+      ><i class="glyphicon glyphicon-user"></i
+      ><a href="http://blog.miniasp.com/author/will.aspx">{{
+        article.author
+      }}</a></span
+    >
+    <span class="post-category"
+      ><i class="glyphicon glyphicon-folder-close"></i
+      ><a [href]="article.categoryLink">{{ article.category }}</a></span
+    >
+    <span><button (click)="onRemove()">刪除文章</button></span>
+    <span
+      ><button *ngIf="!isEdit" (click)="isEdit = true">編輯標題</button></span
+    >
+    <span
+      ><button *ngIf="isEdit" (click)="onReset()">取消編輯</button></span
+    >
+  </div>
+</header>
